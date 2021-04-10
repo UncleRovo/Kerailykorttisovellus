@@ -4,13 +4,13 @@ Keräilykorttisovelluksella on kaksi käyttäjää, peruskäyttäjä sekä yllä
 
 ## Suunnitellut ominaisuudet
 
-Itse järjestelmä:
+#### Itse järjestelmä:
 
 - pitää tietokantaa eri keräilykorteista, joilla on nimi, elementti, harvinaisuustaso (1 - 3), kuvaus, sekä ID.
 - pitää kirjaa käyttäjistä sekä heidän tiedoistaan, kuten lähetettyjen viestien määrästä ja heidän omistamistaan sovelluksen sisäisistä hyödykkeistä
 - järjestää korttien vaihtamisen ja yksityisviestit eri käyttäjien välillä
 
-Peruskäyttäjä voi:
+#### Peruskäyttäjä voi:
 
 - luoda tilin ja kirjautua sinne. Tilin luonnin yhteydessä käyttäjälle myönnetään 5 sovelluksen sisäistä kolikkoa
 - tarkistaa kolikkomääränsä sekä hankkia sovelluskolikoita syöttämällä järjestelmään oikean 9-merkkisen koodin
@@ -24,7 +24,7 @@ Peruskäyttäjä voi:
 - lähettää muille käyttäjille vaihtopyyntöjä sekä yksityisviestejä
 - lukea ylläpitäjän ilmoituksia
 
-Ylläpitäjä voi:
+#### Ylläpitäjä voi:
 
 - tarkastella käyttäjiä sekä heidän tietojaan
 - kirjoittaa ilmoituksia muille käyttäjille sekä poistaa niitä
