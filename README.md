@@ -1,8 +1,8 @@
-#KERÄILYKORTTISOVELLUS
+# KERÄILYKORTTISOVELLUS
 
 Keräilykorttisovelluksella on kaksi käyttäjää, peruskäyttäjä sekä ylläpitäjä. Sovelluksen tarkoituksena on tarjota käyttäjilleen palvelu, jossa voi hankkia, katsella ja vaihtaa erilaisia keräilykortteja.
 
-##Suunnitellut ominaisuudet
+## Suunnitellut ominaisuudet
 
 Itse järjestelmä:
 
