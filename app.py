@@ -9,11 +9,16 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 app.secret_key = getenv("SECRET_KEY")
-
-
+booted = True
 
 @app.route("/")
 def login():
+    global booted
+    if booted == True:
+        booted = False
+        session["username"] = None
+        session["isadmin"] = False
+        
     if session["username"] == None:
         return render_template("login.html")
     return redirect("/frontpage")
