@@ -1,0 +1,9 @@
+<title>Testisovellus</title>
+Montako korttia tietokannassa: {{ count }}
+<hr>
+{% for kortti in kortit %}
+{{  "id: " + kortti[0] + "     |     Nimi: " + kortti[1] + "     |     Kuvaus: " + kortti[3] + "     |     Elementti: " + kortti[2] + "     |     Harvinaisuustaso: " + kortti[4]}}
+<hr>
+{% endfor %}
+<a href="/add">Lisää uusi kortti</a>
+<a href="/frontpage">Takaisin</a>
