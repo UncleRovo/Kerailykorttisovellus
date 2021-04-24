@@ -12,9 +12,7 @@ app.secret_key = getenv("SECRET_KEY")
 
 @app.route("/")
 def login():
-    if session["username"] == None:
-        return render_template("login.html")
-    return redirect("/frontpage")
+    return render_template("login.html")
     
 @app.route("/catalogue")
 def catalogue():
