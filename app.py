@@ -116,7 +116,7 @@ def createaccount():
     if p != cp:
         return redirect("/error")
     
-    sql = "INSERT INTO users (username, password, actions, coins, isadmin) VALUES (:username, :password, 0, 0, TRUE)"
+    sql = "INSERT INTO users (username, password, actions, coins, isadmin) VALUES (:username, :password, 0, 5, FALSE)"
     db.session.execute(sql, {"username":username,"password":password})
     db.session.commit()
     return redirect("/")
