@@ -9,7 +9,7 @@ Keräilykorttisovelluksella on kaksi käyttäjää, peruskäyttäjä sekä yllä
 
 ## Toteutetut ominaisuudet
 
-- järjestelmä pitää kirjaa eri keräilykorteista, joilla on nimi, elementti, harvinaisuustaso (1 - 3), kuvaus, sekä ID.
+- järjestelmä pitää kirjaa eri keräilykorteista, joilla on nimi, elementti, harvinaisuustaso (1 - 3), kuvaus, sekä ID
 - peruskäyttäjä voi luoda tilin ja kirjautua sinne
 - ylläpitäjä (admin) voi tarkastella olemassaolevia keräilykortteja sekä lisätä niitä järjestelmään
 
