@@ -71,6 +71,13 @@ def remove():
     kortit = result.fetchall()
     return render_template("remove.html", kortit=kortit)
     
+@app.route("/delete", methods=["POST"])
+def delete():
+    if session["isadmin"] == False:
+        return render_template("accesserror.html")
+    name = request.form["name"]
+    return render_template("/deletest.html", nimi=name)
+    
 @app.route("/userlogin", methods=["POST"])
 def userlogin():
 

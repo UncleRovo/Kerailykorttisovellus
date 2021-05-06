@@ -6,3 +6,12 @@ Minkä kortin haluat poistaa?
     <option value="p">{{kortti[1]}}</option>
     {% endfor %}
 </select>
+
+<form action="/delete" method="POST">
+Nimi: <br>
+<textarea name="name" rows="3" cols="40"></textarea>
+<br>
+  
+<input type="submit" value="Lähetä">
+
+</form>
