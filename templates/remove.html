@@ -1,2 +1,8 @@
 <title>Testisovellus</title>
 Minkä kortin haluat poistaa?
+
+<select>
+    {% for kortti in kortit %}
+    <option value="p">{{kortti[1]}}</option>
+    {% endfor %}
+</select>

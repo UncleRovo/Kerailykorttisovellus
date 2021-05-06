@@ -67,7 +67,9 @@ def send():
 def remove():
     if session["isadmin"] == False:
         return render_template("accesserror.html")
-    return render_template("remove.html")
+    result = db.session.execute("SELECT * FROM cards")
+    kortit = result.fetchall()
+    return render_template("remove.html", kortit=kortit)
     
 @app.route("/userlogin", methods=["POST"])
 def userlogin():
