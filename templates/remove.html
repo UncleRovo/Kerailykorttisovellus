@@ -1,16 +1,15 @@
 <title>Testisovellus</title>
 Minkä kortin haluat poistaa?
 
-<select>
-    {% for kortti in kortit %}
-    <option value="p">{{kortti[1]}}</option>
-    {% endfor %}
-</select>
+
 
 <form action="/delete" method="POST">
-Nimi: <br>
-<textarea name="name" rows="3" cols="40"></textarea>
-<br>
+
+<select id="name" name="name">
+    {% for kortti in kortit %}
+    <option value={{kortti[0]}}>{{kortti[1]}}</option>
+    {% endfor %}
+</select>
   
 <input type="submit" value="Lähetä">
 
