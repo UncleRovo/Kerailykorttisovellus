@@ -31,7 +31,12 @@ def catalogue():
         caard.append(kortti[1])
         caard.append(kortti[2])
         caard.append(kortti[3])
-        caard.append(str(kortti[4]))
+        if kortti[4] == 1:
+            caard.append("Kulta")
+        elif kortti[4] == 2:
+            caard.append("Hopea")
+        else:
+            caard.append("Pronssi")
         caards.append(caard)
     
     kortit = caards
