@@ -63,6 +63,12 @@ def send():
     db.session.commit()
     return redirect("/catalogue")
     
+@app.route("/remove")
+def remove():
+    if session["isadmin"] == False:
+        return render_template("accesserror.html")
+    return render_template("remove.html")
+    
 @app.route("/userlogin", methods=["POST"])
 def userlogin():
 
