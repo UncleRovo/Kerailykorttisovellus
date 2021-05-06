@@ -75,8 +75,11 @@ def remove():
 def delete():
     if session["isadmin"] == False:
         return render_template("accesserror.html")
-    name = request.form["name"]
-    return render_template("/deletest.html", nimi=name)
+    cardID = request.form["name"]
+    sql = "DELETE FROM cards WHERE id=:id"
+    db.session.execute(sql, {"id":cardID})
+    db.session.commit()
+    return redirect("/catalogue")
     
 @app.route("/userlogin", methods=["POST"])
 def userlogin():
