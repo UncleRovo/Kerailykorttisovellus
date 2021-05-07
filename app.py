@@ -102,6 +102,12 @@ def userlogin():
             session["isadmin"] = True
     else:
         return redirect("/error")
+        
+    sql = "SELECT coins FROM users WHERE username = :username"
+    result = db.session.execute(sql, {"username":username})
+    coins = result.fetchone()
+    session["coins"] = coins[0]
+    
     return redirect("/frontpage")
     
 @app.route("/signin")
@@ -115,9 +121,10 @@ def frontpage():
     if session["username"] == None:
         return redirect("/")
     username = session["username"]
+    coins = session["coins"]
     if session["isadmin"] == True:
         return render_template("/adminlogin.html")
-    return render_template("/frontpage.html", username=username)
+    return render_template("/frontpage.html", username=username, coins=coins)
     
 @app.route("/createaccount", methods=["POST"])
 def createaccount():
@@ -143,4 +150,5 @@ def error():
 def logout():
     session["username"] = None
     session["isadmin"] = False
+    session["coins"] = 0
     return redirect("/")
