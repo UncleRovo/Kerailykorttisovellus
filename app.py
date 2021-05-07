@@ -143,13 +143,26 @@ def buycard():
 def randomizecard():
     if session["username"] == None or session["username"] == "admin":
         return redirect("/")
+        
+    session["coins"] = session["coins"] - 1
+    
+    if session["coins"] < 0:
+        session["coins"] = 0;
+        return redirect("/error")
+    newCoins = session["coins"]
+    ownerID = session["userID"]
+    
+    sql = "UPDATE users SET coins = :newCoins WHERE id = :ownerID"
+    db.session.execute(sql, {"newCoins":newCoins, "ownerID":ownerID})
+    db.session.commit()
+    
     result = db.session.execute("SELECT * FROM cards")
     kortit = result.fetchall()
     index = random.randint(0, len(kortit) - 1)
     kortti = kortit[index]
     
     cardID = kortti[0]
-    ownerID = session["userID"]
+    
     
     sql = "SELECT * FROM circulation WHERE cardID = :cardID AND ownerID = :ownerID"
     result = db.session.execute(sql, {"cardID":cardID, "ownerID":ownerID})
@@ -157,8 +170,14 @@ def randomizecard():
     
     if len(olemassaolevat) == 0:
         print("ei kortteja, voidaan lisätä")
+        sql = "INSERT INTO circulation VALUES (:ownerID, :cardID, 1)"
     else:
         print("käyttäjällä on jo tämä kortti")
+        sql = "UPDATE circulation SET amount = (SELECT amount FROM circulation WHERE ownerID = :ownerID AND cardID = :cardID) + 1 WHERE ownerID = :ownerID AND cardID = :cardID"
+    
+    
+    db.session.execute(sql, {"ownerID":ownerID, "cardID":cardID})
+    db.session.commit()
     
     harv = "Pronssi"
     if kortti[4] == 2:
