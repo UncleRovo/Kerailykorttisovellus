@@ -1,4 +1,5 @@
 from flask import Flask
+import random
 from flask import redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -125,6 +126,30 @@ def frontpage():
     if session["isadmin"] == True:
         return render_template("/adminlogin.html")
     return render_template("/frontpage.html", username=username, coins=coins)
+    
+@app.route("/buycard")
+def buycard():
+    if session["username"] == None or session["username"] == "admin":
+        return redirect("/")
+    return render_template("/buycard.html", username=session["username"])
+    
+@app.route("/randomizecard")
+def randomizecard():
+    if session["username"] == None or session["username"] == "admin":
+        return redirect("/")
+    result = db.session.execute("SELECT * FROM cards")
+    kortit = result.fetchall()
+    index = random.randint(0, len(kortit) - 1)
+    kortti = kortit[index]
+    
+    harv = "Pronssi"
+    print(kortti[4])
+    if kortti[4] == 2:
+        harv = "Hopea"
+    elif kortti[4] == 1:
+        harv = "Kulta"
+    
+    return render_template("/getcard.html", kortti=kortti[1], harv=harv)
     
 @app.route("/createaccount", methods=["POST"])
 def createaccount():
