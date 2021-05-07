@@ -148,10 +148,19 @@ def randomizecard():
     index = random.randint(0, len(kortit) - 1)
     kortti = kortit[index]
     
+    cardID = kortti[0]
+    ownerID = session["userID"]
     
+    sql = "SELECT * FROM circulation WHERE cardID = :cardID AND ownerID = :ownerID"
+    result = db.session.execute(sql, {"cardID":cardID, "ownerID":ownerID})
+    olemassaolevat = result.fetchall()
+    
+    if len(olemassaolevat) == 0:
+        print("ei kortteja, voidaan lisätä")
+    else:
+        print("käyttäjällä on jo tämä kortti")
     
     harv = "Pronssi"
-    print(kortti[4])
     if kortti[4] == 2:
         harv = "Hopea"
     elif kortti[4] == 1:
