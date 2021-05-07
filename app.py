@@ -109,6 +109,11 @@ def userlogin():
     coins = result.fetchone()
     session["coins"] = coins[0]
     
+    sql = "SELECT id FROM users WHERE username = :username"
+    result = db.session.execute(sql, {"username":username})
+    userID = result.fetchone()
+    session["userID"] = userID[0]
+    
     return redirect("/frontpage")
     
 @app.route("/signin")
@@ -123,9 +128,10 @@ def frontpage():
         return redirect("/")
     username = session["username"]
     coins = session["coins"]
+    userID = session["userID"]
     if session["isadmin"] == True:
         return render_template("/adminlogin.html")
-    return render_template("/frontpage.html", username=username, coins=coins)
+    return render_template("/frontpage.html", username=username, coins=coins, userID=userID)
     
 @app.route("/buycard")
 def buycard():
@@ -141,6 +147,8 @@ def randomizecard():
     kortit = result.fetchall()
     index = random.randint(0, len(kortit) - 1)
     kortti = kortit[index]
+    
+    
     
     harv = "Pronssi"
     print(kortti[4])
@@ -176,4 +184,5 @@ def logout():
     session["username"] = None
     session["isadmin"] = False
     session["coins"] = 0
+    session["userID"] = -1
     return redirect("/")
