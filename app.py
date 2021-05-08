@@ -79,6 +79,26 @@ def add():
         return render_template("accesserror.html")
     return render_template("add.html")
     
+@app.route("/addcoincode")
+def addcoincode():
+    if session["isadmin"] == False:
+        return render_template("accesserror.html")
+    return render_template("addcoincode.html")
+    
+@app.route("/addcode", methods=["POST"])
+def addcode():
+    if session["isadmin"] == False:
+        return render_template("accesserror.html")
+    code = request.form["code"]
+    coinamount = request.form["coinamount"]
+    
+    sql = "INSERT INTO coincodes (code, coinamount) VALUES (:code, :coinamount)"
+    
+    db.session.execute(sql, {"code":code, "coinamount":coinamount})
+    db.session.commit()
+    
+    return redirect("/frontpage")
+    
 @app.route("/send", methods=["POST"])
 def send():
     if session["isadmin"] == False:
