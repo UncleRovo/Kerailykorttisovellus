@@ -44,6 +44,35 @@ def catalogue():
         
     return render_template("catalogue.html", count=count, kortit=kortit)
     
+@app.route("/listmycards")
+def listmycards():
+    if session["username"] == None or session["isadmin"] == True:
+        return render_template("error.html")
+    ownerid = session["userID"]
+    sql = "SELECT cards.nimi, cards.elementti, cards.kuvaus, cards.harvinaisuus, circulation.amount FROM cards, circulation WHERE circulation.ownerid = :ownerid AND cards.id = circulation.cardid"
+    result = db.session.execute(sql, {"ownerid":ownerid})
+    
+    userCards = result.fetchall()
+    temp = []
+    
+    for card in userCards:
+        cardtoadd = []
+        cardtoadd.append(card[0])
+        cardtoadd.append(card[1])
+        cardtoadd.append(card[2])
+        if card[3] == 1:
+            cardtoadd.append("Kulta")
+        elif card[3] == 2:
+            cardtoadd.append("Hopea")
+        else:   
+            cardtoadd.append("Pronssi")
+        cardtoadd.append(str(card[4]))
+        temp.append(cardtoadd)
+    
+    userCards = temp
+        
+    return render_template("listmycards.html", kortit=userCards)
+    
 @app.route("/add")
 def add():
     if session["isadmin"] == False:
