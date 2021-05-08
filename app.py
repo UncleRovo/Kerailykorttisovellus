@@ -105,10 +105,15 @@ def remove():
 def delete():
     if session["isadmin"] == False:
         return render_template("accesserror.html")
-    cardID = request.form["name"]
+    card = request.form["name"]
     sql = "DELETE FROM cards WHERE id=:id"
-    db.session.execute(sql, {"id":cardID})
+    db.session.execute(sql, {"id":card})
     db.session.commit()
+    
+    sql ="DELETE FROM circulation WHERE cardid = :cardid"
+    db.session.execute(sql, {"cardid":card})
+    db.session.commit()
+    
     return redirect("/catalogue")
     
 @app.route("/userlogin", methods=["POST"])
