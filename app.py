@@ -79,6 +79,40 @@ def add():
         return render_template("accesserror.html")
     return render_template("add.html")
     
+@app.route("/insertcode")
+def insertcode():
+    if session["isadmin"] == True or session["username"] == None:
+        return redirect("/frontpage")
+    return render_template("insertcode.html")
+    
+@app.route("/getcoins", methods=["POST"])
+def getcoins():
+    if session["isadmin"] == True or session["username"] == None:
+        return redirect("/frontpage")
+    code = request.form["code"]
+    
+    sql = "SELECT coinamount FROM coincodes WHERE code = :code"
+    result = db.session.execute(sql, {"code":code})
+    
+    kolikot = result.fetchall()[0]
+
+    if kolikot == None or kolikot[0] == 0:
+        return redirect("/error")
+        
+    coins = kolikot[0] + session["coins"]
+    session["coins"] = coins
+    
+    
+    sql = "UPDATE users SET coins = :coins WHERE id = :userid"
+    db.session.execute(sql, {"coins":coins, "userid":session["userID"]})
+    db.session.commit()
+    
+    sql = "DELETE FROM coincodes WHERE code = :code"
+    result = db.session.execute(sql, {"code":code})
+    db.session.commit()
+    
+    return redirect("/frontpage")
+    
 @app.route("/addcoincode")
 def addcoincode():
     if session["isadmin"] == False:
