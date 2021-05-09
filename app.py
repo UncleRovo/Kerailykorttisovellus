@@ -13,7 +13,7 @@ app.secret_key = getenv("SECRET_KEY")
 
 @app.route("/")
 def login():
-    return render_template("login.html")
+    return logout()
     
 @app.route("/catalogue")
 def catalogue():
@@ -46,8 +46,10 @@ def catalogue():
     
 @app.route("/listmycards")
 def listmycards():
-    if session["username"] == None or session["isadmin"] == True:
-        return render_template("error.html")
+    if session["username"] == None:
+        return error("Et ole kirjautunut sisään")
+    if session["isadmin"] == True:
+        return error("Ylläpitäjällä ei voi olla kortteja")
     ownerid = session["userID"]
     sql = "SELECT cards.nimi, cards.elementti, cards.kuvaus, cards.harvinaisuus, circulation.amount FROM cards, circulation WHERE circulation.ownerid = :ownerid AND cards.id = circulation.cardid"
     result = db.session.execute(sql, {"ownerid":ownerid})
@@ -76,7 +78,7 @@ def listmycards():
 @app.route("/messages")
 def messages():
     if session["username"] == None or session["isadmin"] == True:
-        return render_template("error.html")
+        return error("Et ole kirjautunut sisään")
     recip = session["userID"]
     sql = "SELECT * FROM messages"
     result = db.session.execute(sql)
@@ -130,7 +132,7 @@ def msgsend():
 @app.route("/add")
 def add():
     if session["isadmin"] == False:
-        return render_template("accesserror.html")
+        return error("Sinulla ei ole oikeuksia nähdä tätä sivua")
     return render_template("add.html")
     
 @app.route("/insertcode")
@@ -148,10 +150,10 @@ def getcoins():
     sql = "SELECT coinamount FROM coincodes WHERE code = :code"
     result = db.session.execute(sql, {"code":code})
     
-    kolikot = result.fetchall()[0]
+    kolikot = result.fetchall()
 
-    if kolikot == None or kolikot[0] == 0:
-        return redirect("/error")
+    if len(kolikot) == 0:
+        return error("kolikkokoodia ei ole olemassa tai se on jo käytetty")
         
     coins = kolikot[0] + session["coins"]
     session["coins"] = coins
@@ -170,13 +172,13 @@ def getcoins():
 @app.route("/addcoincode")
 def addcoincode():
     if session["isadmin"] == False:
-        return render_template("accesserror.html")
+        return error("Sinulla ei ole oikeutta nähdä tätä sivua")
     return render_template("addcoincode.html")
     
 @app.route("/addcode", methods=["POST"])
 def addcode():
     if session["isadmin"] == False:
-        return render_template("accesserror.html")
+        return error("Sinulla ei ole oikeutta nähdä tätä sivua")
     code = request.form["code"]
     coinamount = request.form["coinamount"]
     
@@ -187,7 +189,6 @@ def addcode():
     
     
     if request.form["ilmoitus"] == "0":
-        print("täällä ollaan")
         sql = "INSERT INTO messages (message, sender, sendername, recip) VALUES ('Uusi kolikkokoodi julkaistu! Käytä koodi "+code+" ennenkuin muut ehtivät!', :sender, :sendername, -1)"
         sender = session["userID"]
         sendername = session["username"]
@@ -199,7 +200,7 @@ def addcode():
 @app.route("/send", methods=["POST"])
 def send():
     if session["isadmin"] == False:
-        return render_template("accesserror.html")
+        return error("Sinulla ei ole oikeutta nähdä tätä sivua")
     name = request.form["name"]
     descr = request.form["descr"]
     elem = request.form["elementti"]
@@ -213,7 +214,7 @@ def send():
 @app.route("/remove")
 def remove():
     if session["isadmin"] == False:
-        return render_template("accesserror.html")
+        return error("Sinulla ei ole oikeutta nähdä tätä sivua")
     result = db.session.execute("SELECT * FROM cards")
     kortit = result.fetchall()
     return render_template("remove.html", kortit=kortit)
@@ -221,7 +222,7 @@ def remove():
 @app.route("/delete", methods=["POST"])
 def delete():
     if session["isadmin"] == False:
-        return render_template("accesserror.html")
+        return error("Sinulla ei ole oikeutta nähdä tätä sivua")
     card = request.form["name"]
     sql = "DELETE FROM cards WHERE id=:id"
     db.session.execute(sql, {"id":card})
@@ -244,7 +245,7 @@ def userlogin():
     user = result.fetchone()
     
     if user == None:
-        return redirect("/error")
+        return error("Käyttäjätunnusta ei ole olemassa")
     
     hash_value = user[0]
     if check_password_hash(hash_value,password):
@@ -253,7 +254,7 @@ def userlogin():
         if username == "admin":
             session["isadmin"] = True
     else:
-        return redirect("/error")
+        return error("Väärä salasana")
         
     sql = "SELECT coins FROM users WHERE username = :username"
     result = db.session.execute(sql, {"username":username})
@@ -270,7 +271,7 @@ def userlogin():
 @app.route("/signin")
 def signin():
     if session["username"] != None:
-        return redirect("/")
+        return redirect("/frontpage")
     return render_template("/signin.html")
     
 @app.route("/frontpage")
@@ -287,7 +288,7 @@ def frontpage():
 @app.route("/buycard")
 def buycard():
     if session["username"] == None or session["username"] == "admin":
-        return redirect("/")
+        return error("/frontpage")
     return render_template("/buycard.html", username=session["username"])
     
 @app.route("/randomizecard")
@@ -299,7 +300,7 @@ def randomizecard():
     
     if session["coins"] < 0:
         session["coins"] = 0;
-        return redirect("/error")
+        return error("Sinulla ei ole tarpeeksi kolikoita")
     newCoins = session["coins"]
     ownerID = session["userID"]
     
@@ -378,4 +379,4 @@ def logout():
     session["isadmin"] = False
     session["coins"] = 0
     session["userID"] = -1
-    return redirect("/")
+    return render_template("/login.html")
