@@ -1,4 +1,7 @@
-<title>Testisovellus</title>
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 <form action="/send" method="POST">
 Nimi: <br>
 <textarea name="name" rows="3" cols="40"></textarea>
@@ -28,4 +31,6 @@ Harvinaisuus: <br>
 <input type="submit" value="Lähetä">
 
 </form>
+{% endblock %}
+<body>
 

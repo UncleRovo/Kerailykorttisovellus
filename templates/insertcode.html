@@ -1,5 +1,7 @@
-<title>Testisovellus</title>
-
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 <form action="/getcoins" method="POST">
 Lisää 9-numeroinen koodi: <br>
 <textarea name="code" rows="1" cols="40"></textarea>
@@ -8,4 +10,6 @@ Lisää 9-numeroinen koodi: <br>
 <input type="submit" value="Lunasta">
 
 </form>
+{% endblock %}
+<body>
 

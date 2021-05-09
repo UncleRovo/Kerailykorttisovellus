@@ -1,4 +1,9 @@
-<title>Testisovellus</title>
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 Satunnainen kortti: {{ kortti + ", taso: " + harv}} <br>
 
 <a href="/frontpage">Takaisin</a>
+{% endblock %}
+<body>

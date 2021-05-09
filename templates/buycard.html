@@ -1,4 +1,7 @@
-<title>Testisovellus</title>
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 Terve {{ username }}, haluatko ostaa kortin? <br>
 
 <form action="/randomizecard">
@@ -10,3 +13,5 @@ Terve {{ username }}, haluatko ostaa kortin? <br>
 <br>
 
 <a href="/frontpage">Takaisin</a>
+{% endblock %}
+<body>

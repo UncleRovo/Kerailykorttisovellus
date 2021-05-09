@@ -1,10 +1,12 @@
-<title>Testisovellus</title>
-Omistat seuraavat kortit:
-
-
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 <hr>
 {% for kortti in kortit %}
 {{  "Nimi: " + kortti[0] + "     |     Elementti: " + kortti[1] + "     |     Kuvaus: " + kortti[2] + "     |     Harvinaisuus: " + kortti[3] + "     |     Määrä: " + kortti[4]}}
 <hr>
 {% endfor %}
 <a href="/frontpage">Takaisin</a>
+</body>
+{% endblock %}

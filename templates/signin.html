@@ -1,4 +1,7 @@
-<title>Testisovellus</title>
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 <h4>Luo tunnus</h4>
 <br>
 <form action="/createaccount" method="POST">
@@ -21,3 +24,5 @@ Vahvista salasana: <br>
 </form>
 
 <a href="/">Takaisin</a>
+</body>
+{% endblock %}

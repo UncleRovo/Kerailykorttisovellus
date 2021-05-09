@@ -1,4 +1,7 @@
-<title>Testisovellus</title>
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 
 <form action="/addcode" method="POST">
 Lisää 9-numeroinen koodi: <br>
@@ -19,4 +22,7 @@ Haluatko tehdä koodista julkisen ilmoituksen?
 <input type="submit" value="Lisää">
 
 </form>
+
+{% endblock %}
+<body>
 

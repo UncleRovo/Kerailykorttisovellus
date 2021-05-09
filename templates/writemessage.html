@@ -1,5 +1,7 @@
-<title>Testisovellus</title>
-
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 <form action="/msgsend" method="POST">
 Vastaanottajan nimi: <br>
 <textarea name="recip" rows="1" cols="40"></textarea>
@@ -12,3 +14,5 @@ Viestisi: <br>
 <input type="submit" value="Lunasta">
 
 </form>
+</body>
+{% endblock %}

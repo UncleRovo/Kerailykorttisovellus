@@ -1,4 +1,7 @@
-<title>Testisovellus</title>
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 Tervetuloa käyttämään sovellusta, {{ username }}! Käyttäjä-id:si on: {{ userID }} <br>
 Kolikkosi: {{ coins }} <br>
 <a href="/buycard">Arvo kortti</a>
@@ -10,3 +13,5 @@ Kolikkosi: {{ coins }} <br>
 <a href="/insertcode">Lunasta kolikkokoodi</a>
 <br>
 <a href="/logout">Kirjaudu ulos</a>
+{% endblock %}
+<body>

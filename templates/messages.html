@@ -1,6 +1,7 @@
-<title>Testisovellus</title>
-
-
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+<body>
+{% block content %}
 <hr>
 {% for viesti in viestit %}
 {{ viesti[1] }}
@@ -12,3 +13,5 @@
 <a href="/writemessage">Lähetä viesti</a>
 <br>
 <a href="/frontpage">Takaisin</a>
+</body>
+{% endblock %}
