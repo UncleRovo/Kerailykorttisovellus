@@ -119,7 +119,7 @@ def msgsend():
     recip = result.fetchone()
     
     if recip == None:
-        return redirect("/error")
+        return error("Käyttäjää ei olemassa!")
     
     recip = recip[0]
     
@@ -349,23 +349,29 @@ def createaccount():
     
     if p != cp:
         return error("Salasanat eivät täsmää")
+        
+    if len(p) < 8:
+        return error("Salasanan on oltava väh. 8 merkkiä pitkä!")
     
-    sql = "INSERT INTO users (username, password, actions, coins, isadmin) VALUES (:username, :password, 0, 5, FALSE)"
-    db.session.execute(sql, {"username":username,"password":password})
-    db.session.commit()
-    
-    session["username"] = username
-    session["isadmin"] = False
-    
-    sql = "SELECT coins FROM users WHERE username = :username"
-    result = db.session.execute(sql, {"username":username})
-    coins = result.fetchone()
-    session["coins"] = coins[0]
-    
-    sql = "SELECT id FROM users WHERE username = :username"
-    result = db.session.execute(sql, {"username":username})
-    userID = result.fetchone()
-    session["userID"] = userID[0]
+    try:
+        sql = "INSERT INTO users (username, password, actions, coins, isadmin) VALUES (:username, :password, 0, 5, FALSE)"
+        db.session.execute(sql, {"username":username,"password":password})
+        db.session.commit()
+        
+        session["username"] = username
+        session["isadmin"] = False
+        
+        sql = "SELECT coins FROM users WHERE username = :username"
+        result = db.session.execute(sql, {"username":username})
+        coins = result.fetchone()
+        session["coins"] = coins[0]
+        
+        sql = "SELECT id FROM users WHERE username = :username"
+        result = db.session.execute(sql, {"username":username})
+        userID = result.fetchone()
+        session["userID"] = userID[0]
+    except:
+        return error("Käyttäjä on jo olemassa!")
     
     return redirect("/frontpage")
     
