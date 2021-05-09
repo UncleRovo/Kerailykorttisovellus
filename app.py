@@ -73,6 +73,28 @@ def listmycards():
         
     return render_template("listmycards.html", kortit=userCards)
     
+@app.route("/messages")
+def messages():
+    if session["username"] == None or session["isadmin"] == True:
+        return render_template("error.html")
+    recip = session["userID"]
+    sql = "SELECT * FROM messages"
+    result = db.session.execute(sql)
+    
+    msgs = result.fetchall()
+    temp = []
+    
+    for message in msgs:
+        if message[3] == recip or message[3] == -1:
+            tempmsg = []
+            tempmsg.append(message[0])
+            tempmsg.append(message[2])
+            temp.append(tempmsg)
+    
+    msgs = temp
+        
+    return render_template("messages.html", viestit=msgs)
+    
 @app.route("/add")
 def add():
     if session["isadmin"] == False:
