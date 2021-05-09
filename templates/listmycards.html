@@ -2,11 +2,31 @@
 {% block title %}Korttini{% endblock %}
 <body>
 {% block content %}
-<hr>
+<!--<hr>
 {% for kortti in kortit %}
 {{  "Nimi: " + kortti[0] + "     |     Elementti: " + kortti[1] + "     |     Kuvaus: " + kortti[2] + "     |     Harvinaisuus: " + kortti[3] + "     |     Määrä: " + kortti[4]}}
 <hr>
 {% endfor %}
+-->
+<table border="1">
+<tr>
+<th>Nimi</th>
+<th>Kuvaus</th>
+<th>Elementti</th>
+<th>harvinaisuus</th>
+<th>Määrä</th>
+</tr>
+
+{% for kortti in kortit %}
+<tr>
+<td>{{ kortti[0] }}</td>
+<td>{{ kortti[2] }}</td>
+<td>{{ kortti[1] }}</td>
+<td>{{ kortti[3] }}</td>
+<td>{{ kortti[4] }}</td>
+</tr>
+{% endfor %}
+<br>
 <a href="/buycard">Osta uusi kortti</a>
 </body>
 {% endblock %}
