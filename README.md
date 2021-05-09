@@ -1,7 +1,6 @@
 # KERÄILYKORTTISOVELLUS
 
-Sovellusta voi testata: https://kerailykorttisovellus.herokuapp.com/
-**HUOM! Jos "Luo tunnus" -vaihtoehtoa klikatessa tapahtuu palvelinvirhe,** kokeile kirjautua millä tahansa käyttäjällä (kuten alempana mainitulla admin-käyttäjällä), kirjautua ulos ja luoda tunnusta uudelleen. 
+Sovelluksen 9. sunnuntain deadline: https://kerailykorttisovellus-final.herokuapp.com/
 
 Sovelluksessa on valmiina järjestelmänvalvojan tunnukset seuraavasti: käyttäjänimi = admin , salasana = adminpassword 
 
