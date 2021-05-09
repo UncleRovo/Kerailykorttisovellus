@@ -194,7 +194,7 @@ def getcoins():
     if len(kolikot) == 0:
         return error("kolikkokoodia ei ole olemassa tai se on jo käytetty")
         
-    coins = kolikot[0] + session["coins"]
+    coins = kolikot[0][0] + session["coins"]
     session["coins"] = coins
     
     
