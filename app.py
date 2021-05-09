@@ -351,12 +351,12 @@ def randomizecard():
     if session["username"] == None or session["username"] == "admin":
         return redirect("/")
         
-    session["coins"] = session["coins"] - 1
+    kolikooot = session["coins"]
     
-    if session["coins"] < 0:
-        session["coins"] = 0;
+    if kolikooot == 0:
         return error("Sinulla ei ole tarpeeksi kolikoita")
-    newCoins = session["coins"]
+    newCoins = kolikooot - 1
+    session["coins"] = newCoins
     ownerID = session["userID"]
     
     sql = "UPDATE users SET coins = :newCoins WHERE id = :ownerID"
