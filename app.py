@@ -347,7 +347,7 @@ def createaccount():
     password = generate_password_hash(p)
     
     if p != cp:
-        return redirect("/error")
+        return error("Salasanat eivät täsmää")
     
     sql = "INSERT INTO users (username, password, actions, coins, isadmin) VALUES (:username, :password, 0, 5, FALSE)"
     db.session.execute(sql, {"username":username,"password":password})
@@ -369,8 +369,8 @@ def createaccount():
     return redirect("/frontpage")
     
 @app.route("/error")
-def error():
-    return render_template("/error.html")
+def error(errormessage):
+    return render_template("/error.html", errormessage=errormessage)
     
 @app.route("/logout")
 def logout():
