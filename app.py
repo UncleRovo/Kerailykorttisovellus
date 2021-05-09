@@ -409,7 +409,7 @@ def createaccount():
         return error("Salasanan on oltava väh. 8 merkkiä pitkä!")
     
     try:
-        sql = "INSERT INTO users (username, password, actions, coins, isadmin) VALUES (:username, :password, 0, 5, TRUE)"
+        sql = "INSERT INTO users (username, password, actions, coins, isadmin) VALUES (:username, :password, 0, 5, FALSE)"
         db.session.execute(sql, {"username":username,"password":password})
         db.session.commit()
         
