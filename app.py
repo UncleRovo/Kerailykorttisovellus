@@ -252,14 +252,18 @@ def addcode():
 def send():
     if session["isadmin"] == False:
         return error("Sinulla ei ole oikeutta nähdä tätä sivua")
+    
     name = request.form["name"]
     descr = request.form["descr"]
-    elem = request.form["elementti"]
-    rari = request.form["harvinaisuus"]
+    if len(name) > 0 and len(descr) > 0:
+        elem = request.form["elementti"]
+        rari = request.form["harvinaisuus"]
     
-    sql = "INSERT INTO cards (nimi, elementti, kuvaus, harvinaisuus) VALUES (:name, :elem, :descr, :rari)"
-    db.session.execute(sql, {"name":name, "elem":elem, "descr":descr, "rari":rari})
-    db.session.commit()
+        sql = "INSERT INTO cards (nimi, elementti, kuvaus, harvinaisuus) VALUES (:name, :elem, :descr, :rari)"
+        db.session.execute(sql, {"name":name, "elem":elem, "descr":descr, "rari":rari})
+        db.session.commit()
+    else:
+        return error("Kummankin syötekentän täytyy sisältää tekstiä!")
     return redirect("/catalogue")
     
 @app.route("/remove")
