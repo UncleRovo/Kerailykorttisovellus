@@ -94,6 +94,38 @@ def messages():
     msgs = temp
         
     return render_template("messages.html", viestit=msgs)
+
+@app.route("/writemessage")
+def writemessage():
+    if session["username"] == None:
+        return render_template("/frontpage")
+    return render_template("writemessage.html")
+    
+@app.route("/msgsend", methods=["POST"])
+def msgsend():
+    if session["username"] == None:
+        return redirect("/frontpage")
+    recipient = request.form["recip"]
+    message = request.form["message"]
+    
+    sender = session["userID"]
+    sendername = session["username"]
+    
+    sql = "SELECT id FROM users WHERE username = :recipient"
+    result = db.session.execute(sql, {"recipient":recipient})
+    
+    recip = result.fetchone()
+    
+    if recip == None:
+        return redirect("/error")
+    
+    recip = recip[0]
+    
+    sql = "INSERT INTO messages (message, sender, sendername, recip) VALUES (:message, :sender, :sendername, :recip)"
+    db.session.execute(sql, {"message":message, "sender":sender, "sendername":sendername, "recip":recip})
+    db.session.commit()
+    
+    return redirect("/frontpage")
     
 @app.route("/add")
 def add():
