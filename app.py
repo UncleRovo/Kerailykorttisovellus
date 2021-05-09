@@ -352,6 +352,20 @@ def createaccount():
     sql = "INSERT INTO users (username, password, actions, coins, isadmin) VALUES (:username, :password, 0, 5, FALSE)"
     db.session.execute(sql, {"username":username,"password":password})
     db.session.commit()
+    
+    session["username"] = username
+    session["isadmin"] = False
+    
+    sql = "SELECT coins FROM users WHERE username = :username"
+    result = db.session.execute(sql, {"username":username})
+    coins = result.fetchone()
+    session["coins"] = coins[0]
+    
+    sql = "SELECT id FROM users WHERE username = :username"
+    result = db.session.execute(sql, {"username":username})
+    userID = result.fetchone()
+    session["userID"] = userID[0]
+    
     return redirect("/frontpage")
     
 @app.route("/error")
