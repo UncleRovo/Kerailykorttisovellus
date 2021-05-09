@@ -8,37 +8,39 @@ Keräilykorttisovelluksella on kaksi käyttäjää, peruskäyttäjä sekä yllä
 
 ## Toteutetut ominaisuudet
 
-- järjestelmä pitää kirjaa eri keräilykorteista, joilla on nimi, elementti, harvinaisuustaso (1 - 3), kuvaus, sekä ID
+- järjestelmä pitää kirjaa eri keräilykorteista, joilla on nimi, elementti, harvinaisuustaso (Kulta - Hopea - Pronssi), kuvaus, sekä ID
 - peruskäyttäjä voi luoda tilin ja kirjautua sinne
 - ylläpitäjä (admin) voi tarkastella olemassaolevia keräilykortteja sekä lisätä niitä järjestelmään
+- Sovellys järjestää korttien vaihtamisen ja yksityisviestit eri käyttäjien välillä
+- Tilin luonnin yhteydessä käyttäjälle myönnetään 5 sovelluksen sisäistä kolikkoa
+- Käyttäjä tarkistaa kolikkomääränsä sekä hankkia sovelluskolikoita syöttämällä järjestelmään oikean 9-merkkisen koodin
+- Käyttäjä voi ostaa satunnaisen keräilykortin 1 kolikolla.
+- Käyttäjä lukea ylläpitäjän ilmoituksia
+- Ylläpitäjä poistaa keräilykortteja
+- kirjoittaa ilmoituksia ja viestejä muille käyttäjille
+- Lisätä järjestelmään uusia kolikkokoodeja
 
 ## Suunnitellut ominaisuudet
 
 #### Itse järjestelmä:
 
-- järjestää korttien vaihtamisen ja yksityisviestit eri käyttäjien välillä
 - pitää kirjaa käyttäjistä sekä heidän tiedoistaan, kuten lähetettyjen viestien määrästä ja heidän omistamistaan sovelluksen sisäisistä hyödykkeist
 
 #### Peruskäyttäjä voi:
 
-- Tilin luonnin yhteydessä käyttäjälle myönnetään 5 sovelluksen sisäistä kolikkoa
-- tarkistaa kolikkomääränsä sekä hankkia sovelluskolikoita syöttämällä järjestelmään oikean 9-merkkisen koodin
+
 - vaihtoehtoisesti kolikoita saa 1kpl per 20 vaihtoa ja/tai yksityisviestiä
-- tarkistaa yksityisviestinsä sekä vaihtopyynnöt muilta käyttäjiltä
-- tarkastella muiden käyttäjien keräilykortteja
-- ostaa satunnaisen keräilykortin 1 kolikolla. 
+- tarkistaa vaihtopyynnöt muilta käyttäjiltä
+- tarkastella muiden käyttäjien keräilykortteja 
 - ostaa 3 kolikolla satunnaisen kortin niin, että kaikista yleisempien korttien saamismahdollisuus puolittuu
 - katsella yksittäisten omistamiensa keräilykorttien tietoja tekstuaalisessa muodossa
 - katsella tilastoja omistamistaan korteista, kuten harvinaisten korttien määrä, duplikaatit sekä prosenttiosuus siitä, kuinka lähellä on kaikkien korttien keräämistä
 - lähettää muille käyttäjille vaihtopyyntöjä sekä yksityisviestejä
-- lukea ylläpitäjän ilmoituksia
+
 
 #### Ylläpitäjä voi:
 
 - tarkastella käyttäjiä sekä heidän tietojaan
-- kirjoittaa ilmoituksia muille käyttäjille sekä poistaa niitä
 - deaktivoida kenen tahansa käyttäjän tilin
-- lähettää yksityisviestejä
-- poistaa keräilykortteja
 - tarkastella kolikkokoodeja (mahdollista myöntämistä varten?)
 - antaa ja poistaa käyttäjille/ltä kolikoita sekä kortteja mielivaltaisesti
