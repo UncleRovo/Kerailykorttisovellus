@@ -182,6 +182,9 @@ def addcode():
     code = request.form["code"]
     coinamount = request.form["coinamount"]
     
+    if len(code) != 9:
+        return error("Kolikkokoodin on oltava tasan yhdeksän merkin pituinen")
+    
     sql = "INSERT INTO coincodes (code, coinamount) VALUES (:code, :coinamount)"
     
     db.session.execute(sql, {"code":code, "coinamount":coinamount})
