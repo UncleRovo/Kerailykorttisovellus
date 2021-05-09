@@ -94,6 +94,7 @@ def messages():
             temp.append(tempmsg)
     
     msgs = temp
+    msgs.reverse()
         
     return render_template("messages.html", viestit=msgs)
 
@@ -184,6 +185,15 @@ def addcode():
     
     if len(code) != 9:
         return error("Kolikkokoodin on oltava tasan yhdeksän merkin pituinen")
+        
+    try:
+        if coinamount == None:
+            return error ("Muistitko lisätä kolikkokoodin?")
+        elif int(coinamount) < 1 or int(coinamount) > 200:
+            return error("Kolikkomäärän on oltava vähintään 1 ja enintään 200")
+    except:
+        return error("epäkelpo syöte kolikkokentässä")
+    
     
     sql = "INSERT INTO coincodes (code, coinamount) VALUES (:code, :coinamount)"
     

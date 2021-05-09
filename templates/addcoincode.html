@@ -4,7 +4,7 @@
 {% block content %}
 
 <form action="/addcode" method="POST">
-Lisää 9-numeroinen koodi: <br>
+Lisää 9-merkkinen koodi: <br>
 <textarea name="code" rows="1" cols="40"></textarea>
 <br>
 
@@ -16,7 +16,7 @@ Haluatko tehdä koodista julkisen ilmoituksen?
 <br>
 <input type="radio" id="kylla" name="ilmoitus" value=0>
   <label for="kylla">Kyllä</label><br>
-<input type="radio" id="ei" name="ilmoitus" value=1>
+<input type="radio" id="ei" name="ilmoitus" value=1 checked="checked">
   <label for="ei">Ei</label><br>
   
 <input type="submit" value="Lisää">
