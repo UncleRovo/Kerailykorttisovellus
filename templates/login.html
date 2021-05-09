@@ -2,17 +2,14 @@
 {% block title %}Kirjaudu{% endblock %}
 <body>
 {% block content %}
-<link rel="stylesheet" href="styles.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<h3>Waltawa Keräilykorttikokoelma</h3><br>
 <h4>Kirjaudu sisään</h4>
 <br>
 <form action="/userlogin" method="POST">
 
-Käyttäjätunnus: <br>
+<p>Käyttäjätunnus:</p>
 <input type="text" name="username"></input>
 <br>
-Salasana: <br>
+<p>Salasana:</p>
 <input type="password" name="password"></input>
 
 <br>
