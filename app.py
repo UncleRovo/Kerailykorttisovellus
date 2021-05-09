@@ -131,6 +131,15 @@ def addcode():
     db.session.execute(sql, {"code":code, "coinamount":coinamount})
     db.session.commit()
     
+    
+    if request.form["ilmoitus"] == "0":
+        print("täällä ollaan")
+        sql = "INSERT INTO messages (message, sender, sendername, recip) VALUES ('Uusi kolikkokoodi julkaistu! Käytä koodi "+code+" ennenkuin muut ehtivät!', :sender, :sendername, -1)"
+        sender = session["userID"]
+        sendername = session["username"]
+        db.session.execute(sql, {"sender":sender, "sendername":sendername})
+        db.session.commit()
+    
     return redirect("/frontpage")
     
 @app.route("/send", methods=["POST"])
